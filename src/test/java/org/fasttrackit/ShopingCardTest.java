@@ -33,11 +33,6 @@ public class ShopingCardTest {
       String succesMessage = driver.findElement(By.className("success-msg")).getText();
         assertThat("Unexpected success message", succesMessage, is(heraldGlassVase + " was added to your shopping cart."));
 
- //   WebElement productNameInCart = driver.findElement(By.xpath())
-
     }
-
-
-
 
 }

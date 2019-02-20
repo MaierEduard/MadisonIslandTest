@@ -43,7 +43,7 @@ public class DiscountPriceTest {
         double convertedSpecialPriceNumber = Double.parseDouble(specialPriceNumber);
 
         assertThat("the product is not on sale", convertedSpecialPriceNumber, lessThan(convertedOldPriceNumber));
-
+driver.quit();
 
         }
 
