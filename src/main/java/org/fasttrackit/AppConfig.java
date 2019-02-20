@@ -11,7 +11,7 @@ public class AppConfig {
 
     static {
         String environment = System.getProperty("env","production");
-        InputStream inputStream = AppConfig.class.getClassLoader().getResourceAsStream(environment+"production.properties");
+        InputStream inputStream = AppConfig.class.getClassLoader().getResourceAsStream(environment+".properties");
 
         try {
             properties.load(inputStream);
