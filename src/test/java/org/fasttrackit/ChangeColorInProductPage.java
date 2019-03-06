@@ -11,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ChangeColorInProductPage {
 
 @Test
-    public void multipleColorChangesAndDimensionsToProductChelseaTee() throws InterruptedException {
+    public void multipleColorChangesAndSizeToProductChelseaTee() throws InterruptedException {
 
     System.setProperty("webdriver.chrome.driver", "src\\test\\resources\\drivers\\chromedriver.exe");
     WebDriver driver = new ChromeDriver();
@@ -44,14 +44,14 @@ public class ChangeColorInProductPage {
     assertThat("We select blue but T-shirt is another color", srcForTshirtBlueBeforeSelectTheColor, is(srcForTshirtBlueAfterSelectTheColor));
 
 
-    String srcForWhiteTshirtBeforeSelectTheColor = "https://fasttrackit.org/selenium-test/media/catalog/product/cache/1/image/1800x/040ec09b1e35df139433887a97daa66f/m/t/mtk002t_3.jpg";
+    String expectSrcForWhiteTshirt = "https://fasttrackit.org/selenium-test/media/catalog/product/cache/1/image/1800x/040ec09b1e35df139433887a97daa66f/m/t/mtk002t_3.jpg";
     driver.findElement(By.className("option-white")).click();
     driver.findElement(By.className("option-l")).click();
     String selectColorWhite = driver.findElement(By.id("select_label_color")).getText();
     assertThat("White", is(selectColorWhite));
     Thread.sleep(1000);
     String srcForWhiteTshirAfterSelectTheColor = driver.findElement(By.cssSelector(".gallery-image.visible")).getAttribute("src");
-    assertThat("We select white but T-shirt is another color",srcForWhiteTshirtBeforeSelectTheColor, is(srcForWhiteTshirAfterSelectTheColor));
+    assertThat("We select white but T-shirt is another color",expectSrcForWhiteTshirt, is(srcForWhiteTshirAfterSelectTheColor));
 
     driver.findElement(By.className("option-blue")).click();
     String selectColorBlueForSecondTime = driver.findElement(By.id("select_label_color")).getText();

@@ -24,10 +24,11 @@ public class AppConfig {
     private static String siteUrl = properties.getProperty("site.url");
     private static String ieDriverPath = properties.getProperty("ie.driver.path");
     private static String geckoDriverPath = properties.getProperty("gecko.driver.path");
+    private static String browserWait = properties.getProperty("browser.wait");
 
-
-
-
+    public static int getTimeout() {
+        return Integer.parseInt(browserWait);
+    }
 
 
 
