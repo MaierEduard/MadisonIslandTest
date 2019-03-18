@@ -10,9 +10,9 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.Arrays;
 import java.util.List;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringContains.containsString;
+
 @RunWith(Parameterized.class)
 public class SearchTest extends TestBase{
 

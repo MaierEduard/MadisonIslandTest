@@ -4,11 +4,25 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 
-import java.sql.Driver;
 import java.util.List;
 
 public class ProductsGrid {
+
+    @FindBy(xpath = "//select[@title='Sort By']")
+    private WebElement sortBySelectList;
+
+    public Select getSortBySelectList() {
+        return new Select(sortBySelectList) ;
+    }
+
+    @FindBy(className = "sort-by-switcher")
+    private WebElement sortDirectionButton;
+
+    public WebElement getSortDirectionButton() {
+        return sortDirectionButton;
+    }
 
     @FindBy(css = ".products-grid .price")
     public List<WebElement> productPriceContains;
@@ -39,8 +53,12 @@ public class ProductsGrid {
     @FindBy(id = "product-price-437")
     private WebElement specialPriceForModernMurrayCeramicVase;
 
+    @FindBy(xpath = "//a[@class='link-compare']")
+    private List<WebElement> vaseNameConatiner;
 
-
+    public List<WebElement> getVaseNameConatiner() {
+        return vaseNameConatiner;
+    }
 
     public WebElement getSpecialPriceForModernMurrayCeramicVase() {
         return specialPriceForModernMurrayCeramicVase;

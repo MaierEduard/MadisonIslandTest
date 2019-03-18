@@ -64,7 +64,7 @@ public class AddToCartTest extends TestBase {
 
        assertThat("The price is not the same", productPriceNumber, equalTo(addToCartNumber));
 
-        driver.quit();
+
         }
 
 
@@ -85,6 +85,7 @@ public class AddToCartTest extends TestBase {
         String firstQuantityInProductPage = productsPage.getQuantity().getAttribute("value");
         double convertedFirstQuantityInProductPage = Double.parseDouble(firstQuantityInProductPage);
         System.out.println(convertedFirstQuantityInProductPage + " succesed convert number");
+        driver.manage().timeouts().pageLoadTimeout(10,TimeUnit.SECONDS);
         productsPage.addToCartButton.click();
         driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         System.out.println("Successful added to cart");

@@ -12,18 +12,15 @@ import org.openqa.selenium.support.PageFactory;
 import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertThat;
 
-public class DiscountPriceTest {
+public class DiscountPriceTest extends TestBase{
 
     @Test
-    public void discountPriceTest() {
+    public void discountPriceTest()  {
 
-        System.setProperty("webdriver.chrome.driver", AppConfig.getChromeDriverPath());
-        WebDriver driver = new ChromeDriver();
-        driver.get(AppConfig.getSiteUrl());
+
         String keyword = "vase";
         Header header = PageFactory.initElements(driver, Header.class);
         header.search(keyword);
-        System.out.println("Press enter in search fild");
 
         ProductsGrid productsGrid = PageFactory.initElements(driver, ProductsGrid.class);
         String oldPrice = productsGrid.getOldPriceForModernMurrayCeramicVase().getText();
@@ -48,7 +45,7 @@ public class DiscountPriceTest {
         double convertedSpecialPriceNumber = Double.parseDouble(specialPriceNumber);
 
         assertThat("the product is not on sale", convertedSpecialPriceNumber, lessThan(convertedOldPriceNumber));
-driver.quit();
+
 
         }
 
