@@ -13,6 +13,11 @@ import java.util.regex.Pattern;
 
 public class ProductsGrid {
 
+
+    @FindBy(xpath = "//div[@class='product-info' and .//button[contains(@class, 'btn-cart')]]//h2[@class='product-name']/a")
+    private List<WebElement>addToCArtProductNameContainer;
+
+
     @FindBy(xpath = "//span[@class='price' and ./parent::*[not(contains(@class,'old-price'))]]")
     private List<WebElement> actualProductPriceContainers;
 
@@ -20,7 +25,7 @@ public class ProductsGrid {
     private WebElement sortBySelectList;
 
     public Select getSortBySelectList() {
-        return new Select(sortBySelectList) ;
+        return new Select(sortBySelectList);
     }
 
     @FindBy(className = "sort-by-switcher")
@@ -42,6 +47,7 @@ public class ProductsGrid {
     public WebElement getAddToCartButton(String productName, WebDriver driver) {
         return driver.findElement(By.xpath("//div[@class='product-info' and .//a[text()='" + productName + "']]//button[@title='Add to Cart']"));
     }
+
     public void addProductToCart(String productName, WebDriver driver) {
         getAddToCartButton(productName, driver).click();
     }
@@ -52,6 +58,7 @@ public class ProductsGrid {
     public void clickProductChelseaTeeHomePage() {
         productChelseaTeeHomePage.click();
     }
+
     @FindBy(id = "old-price-437")
     private WebElement oldPriceForModernMurrayCeramicVase;
 
@@ -73,8 +80,13 @@ public class ProductsGrid {
     public WebElement getOldPriceForModernMurrayCeramicVase() {
         return oldPriceForModernMurrayCeramicVase;
     }
+
     public List<WebElement> getProductNameContainers() {
         return productNameContainers;
+    }
+
+    public List<WebElement> getAddToCArtProductNameContainer() {
+        return addToCArtProductNameContainer;
     }
 
     public List<String> getProductName() {
@@ -106,7 +118,7 @@ public class ProductsGrid {
             if (matcher.find()) {
                 String priceAsTextWithoutCurrency = matcher.group(1);
 
-              priceAsTextWithoutCurrency = priceAsTextWithoutCurrency.replace(",", ".");
+                priceAsTextWithoutCurrency = priceAsTextWithoutCurrency.replace(",", ".");
 
                 double convertedPrice = Double.parseDouble(priceAsTextWithoutCurrency);
                 convertedPrices.add(convertedPrice);

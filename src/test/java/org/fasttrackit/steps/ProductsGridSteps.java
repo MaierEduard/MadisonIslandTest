@@ -6,17 +6,17 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.fasttrackit.TestBase;
 import org.fasttrackit.pageobjects.ProductsGrid;
-import org.fasttrackit.pageobjects.ProductsPage;
 import org.fasttrackit.pageobjects.WomenPage;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.number.OrderingComparison.greaterThanOrEqualTo;
 
 
 public class ProductsGridSteps extends TestBase {
@@ -92,5 +92,13 @@ public class ProductsGridSteps extends TestBase {
     }
 
 
+    @And("^I store the product name of the (\\d+)(?:.+?) product with Add to Cart button$")
+    public void iStoreTheProductNameOfTheStProductWithAddToCartButton(int productNumber) {
+        List<WebElement> nameContainers = productsGrid.getAddToCArtProductNameContainer();
+
+        assertThat("Not enough products displayed", nameContainers.size(),greaterThanOrEqualTo(productNumber));
+        String productName = nameContainers.get(productNumber - 1).getText();
+        getStepVariables().put("addToCartProductName", productName);
+    }
 }
 

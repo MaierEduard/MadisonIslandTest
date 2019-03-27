@@ -4,6 +4,7 @@ import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import org.fasttrackit.DriverConfiguration;
+import org.fasttrackit.TestBase;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
@@ -15,6 +16,8 @@ public class Hooks {
     public void setup(Scenario scenario) {
         String browser = System.getProperty("browser" ,"chrome");
         DriverConfiguration.initDriver(browser);
+
+        TestBase.getStepVariables().clear();
 
     }
 

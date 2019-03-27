@@ -1,18 +1,20 @@
 package org.fasttrackit;
 
 
-import org.fasttrackit.pageobjects.ProductsPage;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class TestBase {
     protected WebDriver driver = DriverConfiguration.getDriver();
+
+    private static final Map<String, Object> STEP_VARIABLES = new HashMap<>();
 
 
     @Before
@@ -57,6 +59,9 @@ public class TestBase {
 
     public static String getCouponCodeForDiscoundCodeFild;
 
+    public static Map<String, Object> getStepVariables() {
+        return STEP_VARIABLES;
+    }
 }
 
 
