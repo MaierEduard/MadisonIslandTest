@@ -2,13 +2,36 @@ package org.fasttrackit.pageobjects;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
 
 public class ShoppingCart {
 
-    @FindBy(css =".product-cart-actions .input-text.qty")
-     private WebElement quantityFild;
+    @FindBy(css = ".messages .error-msg")
+    private WebElement errorMessageFromDiscountCode;
 
-    @FindBy(className = "cart-price")
+    @FindBy(className = "button-wrapper")
+    private WebElement applyButtonForDiscontCode;
+
+    @FindBy(xpath = "//button[@class='button2 btn-update' and not(contains(@style, 'visibility:hidden;'))]")
+    private WebElement updateShoppingCart;
+
+     @FindBy(css = ".last .button.btn-update")
+    private WebElement quantityUpdate;
+
+
+    @FindBy(css = ".first .input-text")
+    private WebElement firstQuantityField;
+
+    @FindBy(css = ".last .product-cart-actions .input-text.qty")
+    private WebElement secondQunatityField;
+
+    @FindBy(css = ".product-cart-total span.cart-price span")
+    private WebElement subTotalPrice;
+
+
+    @FindBy(xpath = "//td[@class='product-cart-price']//span[@class='price']")
     private WebElement productPrice;
 
     @FindBy(xpath = "//td[@class='product-cart-image']//img[@alt='Chelsea Tee']")
@@ -21,10 +44,10 @@ public class ShoppingCart {
     private WebElement msgSuccessAdded;
 
     @FindBy(xpath = "//tr[contains(@class,'first')]//td[@class='a-center product-cart-remove last']//a[@title='Remove Item']")
-    public WebElement firstRemoveButton;
+    private WebElement firstRemoveButton;
 
     @FindBy(css = ".last.even .a-center a")
-    public WebElement secondRemoveButton;
+    private WebElement secondRemoveButton;
 
     @FindBy(className = "page-title")
     private WebElement msgEmptyShoppingCart;
@@ -35,8 +58,55 @@ public class ShoppingCart {
     @FindBy(css = ".last  .product-cart-info  h2")
     private WebElement secondProduct;
 
+    public void chengeNumberInFirstQuantityField(String number) {
+        getFirstQuantityField().clear();
+        getFirstQuantityField().sendKeys(number);
+    }
 
 
+
+
+
+    @FindBy(xpath = "//tbody//input[@class='input-text qty']")
+    private List<WebElement> quantitiesFields;
+
+
+    public void clearAllQuantitiesFields() {
+        for (WebElement contains : getQuantitiesFields()) {
+            contains.clear();
+
+        }
+    }
+    @FindBy(id = "country")
+    private WebElement countryFild;
+
+    public Select getCountryBySelectList() {
+        return new Select(countryFild);
+    }
+    @FindBy(id = "region_id")
+    private WebElement stateFild;
+
+    public Select getStateBySelectList() {
+        return new Select(stateFild);
+    }
+
+    @FindBy(id = "city")
+    private WebElement cityField;
+
+    @FindBy(id = "postcode")
+    private WebElement zipeCodeField;
+
+    @FindBy(id = "coupon_code")
+    private WebElement discountCode;
+
+
+
+ public static String getNumberOfQuantity;
+
+
+    public WebElement getSecondRemoveButton() {
+        return secondRemoveButton;
+    }
 
     public WebElement getSecondProduct() {
         return secondProduct;
@@ -64,7 +134,56 @@ public class ShoppingCart {
         return productPrice;
     }
 
-    public WebElement getQuantityFild() {
-        return quantityFild;
+    public WebElement getSubTotalPrice() {
+        return subTotalPrice;
+    }
+
+    public WebElement getFirstQuantityField() {
+        return firstQuantityField;
+    }
+
+
+    public List<WebElement> getQuantitiesFields() {
+        return quantitiesFields;
+    }
+
+    public WebElement getSecondQunatityField() {
+        return secondQunatityField;
+    }
+
+    public WebElement getQuantityUpdate() {
+        return quantityUpdate;
+    }
+
+    public WebElement getCountryFild() {
+        return countryFild;
+    }
+
+    public WebElement getStateFild() {
+        return stateFild;
+    }
+
+    public WebElement getCityField() {
+        return cityField;
+    }
+
+    public WebElement getZipeCodeField() {
+        return zipeCodeField;
+    }
+
+    public WebElement getDiscountCode() {
+        return discountCode;
+    }
+
+    public WebElement getApplyButtonForDiscontCode() {
+        return applyButtonForDiscontCode;
+    }
+
+    public WebElement getErrorMessageFromDiscountCode() {
+        return errorMessageFromDiscountCode;
+    }
+
+    public WebElement getUpdateShoppingCart() {
+        return updateShoppingCart;
     }
 }

@@ -1,6 +1,7 @@
 package org.fasttrackit;
 
 import org.fasttrackit.pageobjects.Header;
+import org.fasttrackit.pageobjects.ProductsCategory;
 import org.fasttrackit.pageobjects.ProductsGrid;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -21,10 +22,11 @@ public class CompareProducts extends TestBase {
     @Test
     public void compareProducts() throws InterruptedException {
 
-        Header header = PageFactory.initElements(driver, Header.class);
+        ProductsCategory productsCategory = PageFactory.initElements(driver, ProductsCategory.class);
+
         Actions actions = new Actions(driver);
-        actions.moveToElement(header.womenCategory).build().perform();
-        header.pantsDenimCategory.click();
+        actions.moveToElement(productsCategory.womenCategory).build().perform();
+        productsCategory.pantsDenimCategory.click();
         ProductsGrid productsGrid = PageFactory.initElements(driver, ProductsGrid.class);
 
         String linkDumbo = Keys.chord(Keys.CONTROL, Keys.RETURN);

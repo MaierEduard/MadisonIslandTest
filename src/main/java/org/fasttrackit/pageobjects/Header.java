@@ -26,20 +26,14 @@ public class Header {
     public void clickHomeLogo() {
         homeLogo.click();
     }
-    @FindBy(css = ".level0.nav-1.first.parent")
-    public WebElement womenCategory;
-
-
-
-
-    @FindBy(linkText = "Pants & Denim")
-    public WebElement pantsDenimCategory;
-
 
     public WebElement getSearchButton() {
         return searchButton;
     }
     public WebElement getSearchField() {
         return searchField;
+    }
+    public WebElement getHomeLogo() {
+        return homeLogo;
     }
 }

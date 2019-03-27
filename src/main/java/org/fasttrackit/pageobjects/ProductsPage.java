@@ -6,27 +6,25 @@ import org.openqa.selenium.support.FindBy;
 public class ProductsPage {
 
     @FindBy(className = "option-m")
-    public WebElement sizeM_Button;
+    private WebElement sizeM_Button;
 
     public void clickSizeM() {
-            sizeM_Button.click();
+        sizeM_Button.click();
     }
 
     @FindBy(css = ".option-s a")
-    public WebElement sizeS_Button;
+    private WebElement sizeS_Button;
 
     @FindBy(xpath = "//a//img[contains(@src,'mtk000t_2')]")
     private WebElement blueTshirtLink;
 
 
-
     @FindBy(css = ".configurable-swatch-list .option-blue")
-    public WebElement blueColorButton;
+    private WebElement blueColorButton;
 
 
     @FindBy(id = "option20")
-    public WebElement blackColorButton;
-
+    private WebElement blackColorButton;
 
 
     @FindBy(css = ".add-to-cart .qty-wrapper  .input-text.qty")
@@ -41,35 +39,35 @@ public class ProductsPage {
     }
 
     @FindBy(className = "add-to-cart-buttons")
-    public WebElement addToCartButton;
+    private WebElement addToCartButton;
 
-@FindBy(className = "regular-price")
+    @FindBy(className = "regular-price")
     private WebElement regularPriceWithoutDiscount;
 
-@FindBy(css = ".clearfix.swatch-attr  .validation-advice")
-private WebElement requiredFieldMsgFromColor;
 
-@FindBy(css = ".input-box .validation-advice")
-private WebElement requiredFieldMsgFromSize;
+
+    @FindBy(css = ".clearfix.swatch-attr  .validation-advice")
+    private WebElement requiredFieldMsgFromColor;
+
+    @FindBy(css = ".input-box .validation-advice")
+    private WebElement requiredFieldMsgFromSize;
 
 
     @FindBy(css = ".product-shop .product-name")
-private WebElement productName;
+    private WebElement productName;
 
     @FindBy(id = "swatch67")
     public WebElement size28Bottun;
 
 
-
-
-
-
     public WebElement getProductName() {
         return productName;
     }
+
     public WebElement getBlueTshirtLink() {
         return blueTshirtLink;
     }
+
     public WebElement getRequiredFieldMsgFromSize() {
         return requiredFieldMsgFromSize;
     }
@@ -84,5 +82,29 @@ private WebElement productName;
 
     public WebElement getQuantity() {
         return quantity;
+    }
+
+    public WebElement getSizeM_Button() {
+        return sizeM_Button;
+    }
+
+    public WebElement getSizeS_Button() {
+        return sizeS_Button;
+    }
+
+    public WebElement getBlueColorButton() {
+        return blueColorButton;
+    }
+
+    public WebElement getBlackColorButton() {
+        return blackColorButton;
+    }
+
+    public WebElement getSize28Bottun() {
+        return size28Bottun;
+    }
+
+    public WebElement getAddToCartButton() {
+        return addToCartButton;
     }
 }

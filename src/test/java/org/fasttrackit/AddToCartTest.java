@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import static org.hamcrest.CoreMatchers.*;
@@ -23,8 +25,8 @@ public class AddToCartTest extends TestBase {
         ProductsGrid productsGrid = PageFactory.initElements(driver, ProductsGrid.class);
         productsGrid.clickProductChelseaTeeHomePage();
         ProductsPage productsPage = PageFactory.initElements(driver, ProductsPage.class);
-        productsPage.sizeM_Button.click();
-        productsPage.addToCartButton.click();
+        productsPage.getSizeM_Button().click();
+        productsPage.getQuantity().click();
 
         String requiredFieldMsg = productsPage.getRequiredFieldMsgFromColor().getText();
         System.out.println(requiredFieldMsg);
@@ -37,18 +39,16 @@ public class AddToCartTest extends TestBase {
     @Test
         public void addToCartFromProdactPage_samePrice() {
 
-        Header header = PageFactory.initElements(driver, Header.class);
 
-        header.clickHomeLogo();
         ProductsGrid productsGrid = PageFactory.initElements(driver, ProductsGrid.class);
         productsGrid.clickProductChelseaTeeHomePage();
         ProductsPage productsPage = PageFactory.initElements(driver, ProductsPage.class);
-        productsPage.blueColorButton.click();
+        productsPage.getBlueColorButton().click();
         productsPage.clickSizeM();
         String productPrice = productsPage.getRegularPriceWithoutDiscount().getText();
         System.out.println(productPrice);
         driver.manage().timeouts().pageLoadTimeout(10,TimeUnit.SECONDS);
-        productsPage.addToCartButton.click();
+        productsPage.getAddToCartButton().click();
         ShoppingCart shoppingCart = PageFactory.initElements(driver, ShoppingCart.class);
         String shoppingCartPrice = shoppingCart.getProductPrice().getText();
         System.out.println(shoppingCartPrice);
@@ -77,8 +77,8 @@ public class AddToCartTest extends TestBase {
         ProductsGrid productsGrid = PageFactory.initElements(driver, ProductsGrid.class);
         productsGrid.clickProductChelseaTeeHomePage();
         ProductsPage productsPage = PageFactory.initElements(driver, ProductsPage.class);
-        productsPage.sizeM_Button.click();
-        productsPage.blueColorButton.click();
+        productsPage.clickSizeM();
+        productsPage.getBlueColorButton().click();
         productsPage.clearQuantityFild();
         String firstQuantityNumber = "2";
         productsPage.numberOfQuantity(firstQuantityNumber);
@@ -86,7 +86,7 @@ public class AddToCartTest extends TestBase {
         double convertedFirstQuantityInProductPage = Double.parseDouble(firstQuantityInProductPage);
         System.out.println(convertedFirstQuantityInProductPage + " succesed convert number");
         driver.manage().timeouts().pageLoadTimeout(10,TimeUnit.SECONDS);
-        productsPage.addToCartButton.click();
+        productsPage.getAddToCartButton().click();
         driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         System.out.println("Successful added to cart");
         driver.navigate().back();
@@ -97,12 +97,12 @@ public class AddToCartTest extends TestBase {
 
         String secondQuantityInProductPage = productsPage.getQuantity().getAttribute("value");
         double convertedSecondQuantityInProductPage = Double.parseDouble(secondQuantityInProductPage);
-        productsPage.addToCartButton.click();
+        productsPage.getAddToCartButton().click();
         Thread.sleep(5000);
 
 
         ShoppingCart shoppingCart = PageFactory.initElements(driver, ShoppingCart.class);
-        String totalQuantityInSoppingCart = shoppingCart.getQuantityFild().getAttribute("value");
+        String totalQuantityInSoppingCart = shoppingCart.getFirstQuantityField().getAttribute("value");
         double convertedTotalQuantityInSoppingCart = Double.parseDouble(totalQuantityInSoppingCart);
 
         assertThat("Total quantity is wrong", convertedFirstQuantityInProductPage + convertedSecondQuantityInProductPage, is(equalTo(convertedTotalQuantityInSoppingCart)));
@@ -118,8 +118,8 @@ public class AddToCartTest extends TestBase {
         ProductsGrid productsGrid = PageFactory.initElements(driver, ProductsGrid.class);
         productsGrid.clickProductChelseaTeeHomePage();
         ProductsPage productsPage = PageFactory.initElements(driver, ProductsPage.class);
-        productsPage.blueColorButton.click();
-        productsPage.addToCartButton.click();
+        productsPage.getBlueColorButton().click();
+        productsPage.getAddToCartButton().click();
 
         String requiredFieldMsg = productsPage.getRequiredFieldMsgFromSize().getText();
         String expectedRequiredFieldMsg = "This is a required field.";
@@ -135,11 +135,11 @@ public class AddToCartTest extends TestBase {
             ProductsGrid productsGrid = PageFactory.initElements(driver, ProductsGrid.class);
             productsGrid.clickProductChelseaTeeHomePage();
             ProductsPage productsPage = PageFactory.initElements(driver, ProductsPage.class);
-            productsPage.blueColorButton.click();
-            productsPage.sizeM_Button.click();
+            productsPage.getBlueColorButton().click();
+            productsPage.clickSizeM();
             String productNameInProductPage = productsPage.getProductName().getText();
             System.out.println(productNameInProductPage);
-            productsPage.addToCartButton.click();
+            productsPage.getAddToCartButton().click();
             ShoppingCart shoppingCart = PageFactory.initElements(driver, ShoppingCart.class);
            String productNameInShoppingCart =  shoppingCart.getProductName().getText();
             System.out.println(productNameInShoppingCart);
@@ -148,7 +148,7 @@ public class AddToCartTest extends TestBase {
             String msgSuccessAdded = shoppingCart.getMsgSuccessAdded().getText();
             System.out.println(msgSuccessAdded);
             assertThat("Chelsea Tee was added to your shopping cart.", containsString(msgSuccessAdded));
-            shoppingCart.firstRemoveButton.click();
+            shoppingCart.getFirstRemoveButton().click();
             String msgEmptyShopingCart = shoppingCart.getMsgEmptyShoppingCart().getText();
             System.out.println(msgEmptyShopingCart);
 
@@ -157,46 +157,44 @@ public class AddToCartTest extends TestBase {
 
 
     @Test
-        public void firstRemoveItemInShoppingCartWithTwoProducts() throws InterruptedException {
+        public void secondRemoveItemInShoppingCartWithTwoProducts() throws InterruptedException {
 
-        Header header = PageFactory.initElements(driver, Header.class);
-        header.clickHomeLogo();
+        Header header = PageFactory.initElements(driver,Header.class);
+        ProductsCategory productsCategory = PageFactory.initElements(driver,ProductsCategory.class);
         ProductsGrid productsGrid = PageFactory.initElements(driver, ProductsGrid.class);
         productsGrid.clickProductChelseaTeeHomePage();
         ProductsPage productsPage = PageFactory.initElements(driver, ProductsPage.class);
-        productsPage.blueColorButton.click();
-        productsPage.sizeM_Button.click();
-        productsPage.addToCartButton.click();
+        productsPage.getBlueColorButton().click();
+        productsPage.clickSizeM();
+        productsPage.getAddToCartButton().click();
+        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         ShoppingCart shoppingCart = PageFactory.initElements(driver, ShoppingCart.class);
         String firstProductInShoppingCart = shoppingCart.getFirstProduct().getText();
-        System.out.println(firstProductInShoppingCart);
+        System.out.println("first product " + firstProductInShoppingCart);
         header.clickHomeLogo();
         Actions action = new Actions(driver);
-        action.moveToElement(header.womenCategory).build().perform();
+        action.moveToElement(productsCategory.womenCategory).build().perform();
         Thread.sleep(3000);
-        header.pantsDenimCategory.click();
+        productsCategory.pantsDenimCategory.click();
         WomenPage womenPage = PageFactory.initElements(driver, WomenPage.class);
         womenPage.productTrbecaSkinnyJean.click();
-        productsPage.blackColorButton.click();
+        productsPage.getBlackColorButton().click();
         productsPage.size28Bottun.click();
-        productsPage.addToCartButton.click();
-        String secodProductInShoppingCart = shoppingCart.getSecondProduct().getText();
-        System.out.println(secodProductInShoppingCart);
-        List<WebElement> produsInCosInainteDeRemove = driver.findElements(By.cssSelector(".cart-table.data-table .product-name"));
-        for (WebElement produse:produsInCosInainteDeRemove) {
-            String numeleProduselelorInainteDeRemove = produse.getText();
-            System.out.println("lista produselor inainte de eliminare"+numeleProduselelorInainteDeRemove);
+        productsPage.getAddToCartButton().click();
+        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+        String secondProductInShoppingCart = shoppingCart.getSecondProduct().getText();
+        System.out.println("second product " + secondProductInShoppingCart);
 
+        shoppingCart.getSecondRemoveButton().click();
+
+//        String secondProductInShoppingCart = shoppingCart.getSecondProduct().getText();
+        List<WebElement> productContain = driver.findElements(By.cssSelector(".cart-table.data-table .product-name"));
+        for (WebElement products:productContain) {
+            String productsName = products.getText();
+
+            assertThat("can't remove the product", secondProductInShoppingCart, not(is(productsName)) );
         }
-        shoppingCart.secondRemoveButton.click();
 
-
-        List<WebElement> produsInCos = driver.findElements(By.cssSelector(".cart-table.data-table .product-name"));
-        for (WebElement produsele:produsInCos) {
-            String numeleProduselelorDupaRemove = produsele.getText();
-            System.out.println("lista produselor dupa eliminare"+numeleProduselelorDupaRemove);
-
-        }
     }
 
 
@@ -204,29 +202,28 @@ public class AddToCartTest extends TestBase {
     @Test
         public void subTotalForChelseaTee() throws InterruptedException {
 
+        ProductsGrid productsGrid = PageFactory.initElements(driver, ProductsGrid.class);
+        ProductsPage productsPage = PageFactory.initElements(driver,ProductsPage.class);
+        ShoppingCart shoppingCart = PageFactory.initElements(driver,ShoppingCart.class);
 
-            driver.findElement(By.xpath("//div[@class='page-header-container']//img[@class='large']")).click();
-            driver.findElement(By.xpath("//div[@class='product-info']//a[@href='https://fasttrackit.org/selenium-test/chelsea-tee-703.html']")).click();
-        driver.findElement(By.className("option-m")).click();
-        driver.findElement(By.cssSelector(".configurable-swatch-list .option-blue")).click();
-        driver.findElement(By.cssSelector(".input-text.qty")).clear();
-        driver.findElement(By.cssSelector(".input-text.qty")).sendKeys("3");
+        productsGrid.clickProductChelseaTeeHomePage();
+        productsPage.getBlackColorButton().click();
+        productsPage.clickSizeM();
+        productsPage.clearQuantityFild();
+        productsPage.getQuantity().sendKeys("3");
         Thread.sleep(1000);
-        driver.findElement(By.className("add-to-cart-buttons")).click();
+        productsPage.getAddToCartButton().click();
         Thread.sleep(2000);
-        String productPrice = driver.findElement(By.xpath("//td[@class='product-cart-price']//span[@class='cart-price']//span[@class='price']")).getText();
-        System.out.println(productPrice);
+        String productPrice = shoppingCart.getProductPrice().getText();
         String[] splitProductPrice = productPrice.split(" ");
         String intProductPrice = splitProductPrice[0];
         intProductPrice = intProductPrice.replace(",", ".");
         double convertProductPrice = Double.parseDouble(intProductPrice);
         System.out.println(convertProductPrice);
-
-        String productQuantity = driver.findElement(By.cssSelector(".product-cart-actions .input-text.qty")).getAttribute("value");
+        String productQuantity = shoppingCart.getFirstQuantityField().getAttribute("value");
         double convertProductQuantity = Double.parseDouble(productQuantity);
         System.out.println(convertProductQuantity);
-
-        String totalPrice = driver.findElement(By.cssSelector(".product-cart-total span.cart-price span")).getText();
+        String totalPrice = shoppingCart.getSubTotalPrice().getText();
         String[] splitTotalPrice = totalPrice.split(" ");
         String intTotalPrice = splitTotalPrice[0];
         intTotalPrice = intTotalPrice.replace(",", ".");
@@ -266,14 +263,14 @@ public class AddToCartTest extends TestBase {
         ProductsGrid productsGrid = PageFactory.initElements(driver, ProductsGrid.class);
         productsGrid.clickProductChelseaTeeHomePage();
         ProductsPage productsPage = PageFactory.initElements(driver, ProductsPage.class);
-        productsPage.blueColorButton.click();
-        productsPage.sizeS_Button.click();
+        productsPage.getBlueColorButton().click();
+        productsPage.getSizeS_Button().click();
 
 
 
         String blueTshirt = productsPage.getBlueTshirtLink().getAttribute("src");
         System.out.println( blueTshirt);
-        productsPage.addToCartButton.click();
+        productsPage.getAddToCartButton().click();
         ShoppingCart shoppingCart = PageFactory.initElements(driver, ShoppingCart.class);
         String expectBlueTshirt = shoppingCart.getBlueTshirtLink().getAttribute("src");
         System.out.println(expectBlueTshirt);
@@ -281,9 +278,55 @@ public class AddToCartTest extends TestBase {
         assertThat("The color T-shirt in imige is not the same", blueTshirt, is(expectBlueTshirt));
         driver.quit();
 
-
-
-
         }
+@Test
+    public void changeQuantitiesInShoppingCart() throws InterruptedException {
+
+
+        Header header = PageFactory.initElements(driver, Header.class);
+        ProductsCategory productsCategory = PageFactory.initElements(driver, ProductsCategory.class);
+        ProductsGrid productsGrid = PageFactory.initElements(driver, ProductsGrid.class);
+        productsGrid.clickProductChelseaTeeHomePage();
+        ProductsPage productsPage = PageFactory.initElements(driver, ProductsPage.class);
+        productsPage.getBlueColorButton().click();
+        productsPage.clickSizeM();
+        productsPage.getAddToCartButton().click();
+        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+        ShoppingCart shoppingCart = PageFactory.initElements(driver, ShoppingCart.class);
+        header.clickHomeLogo();
+        Actions action = new Actions(driver);
+        action.moveToElement(productsCategory.womenCategory).build().perform();
+        Thread.sleep(3000);
+        productsCategory.pantsDenimCategory.click();
+        WomenPage womenPage = PageFactory.initElements(driver, WomenPage.class);
+        womenPage.productTrbecaSkinnyJean.click();
+        productsPage.getBlackColorButton().click();
+        productsPage.size28Bottun.click();
+        productsPage.getAddToCartButton().click();
+        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+
+        List<WebElement> getFields = shoppingCart.getQuantitiesFields();
+    for (WebElement contains : getFields) {
+       contains.clear();
     }
+
+    shoppingCart.getFirstQuantityField().sendKeys("5");
+    shoppingCart.getSecondQunatityField().sendKeys("10");
+    List<String> populateFields = new ArrayList<>();
+    String firstNumber = shoppingCart.getFirstQuantityField().getAttribute("value");
+    String secondNumber = shoppingCart.getSecondQunatityField().getAttribute("value");
+    populateFields.add(firstNumber);
+    populateFields.add(secondNumber);
+    shoppingCart.getUpdateShoppingCart().click();
+
+    for (WebElement contains : shoppingCart.getQuantitiesFields()) {
+        String numberValueOfQuantities = contains.getAttribute("value");
+
+        assertThat("the quantity not changed",numberValueOfQuantities, equalTo(populateFields));
+    }
+
+    }
+
+    }
+
 

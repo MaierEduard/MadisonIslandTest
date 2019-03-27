@@ -1,12 +1,10 @@
 package org.fasttrackit;
 
-import org.fasttrackit.pageobjects.Header;
+import org.fasttrackit.pageobjects.ProductsCategory;
 import org.fasttrackit.pageobjects.ProductsGrid;
 import org.fasttrackit.pageobjects.ShopBy;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 
@@ -18,20 +16,17 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.lessThan;
 
 public class SortByTest {
-    public static class SortByBalckColor {
+    public static class SortByBalckColor extends TestBase {
 
         @Test
         public void sortByBlackColor() {
 
-            System.setProperty("webdriver.chrome.driver", AppConfig.getChromeDriverPath());
-            WebDriver driver = new ChromeDriver();
-            driver.get(AppConfig.getSiteUrl());
+            ProductsCategory productsCategory = PageFactory.initElements(driver, ProductsCategory.class);
 
-            Header header = PageFactory.initElements(driver, Header.class);
 
             Actions actions = new Actions(driver);
-            actions.moveToElement(header.womenCategory).build().perform();
-            header.pantsDenimCategory.click();
+            actions.moveToElement(productsCategory.womenCategory).build().perform();
+            productsCategory.pantsDenimCategory.click();
             ProductsGrid productsGrid = PageFactory.initElements(driver, ProductsGrid.class);
             ShopBy shopBy = PageFactory.initElements(driver, ShopBy.class);
             shopBy.blackColorButton.click();
@@ -54,27 +49,24 @@ public class SortByTest {
 
     }
 
-    public static class SortByPrice100_199 {
+    public static class SortByPrice100_199 extends TestBase{
 
         @Test
         public void sortByPrice100_199() {
 
-            System.setProperty("webdriver.chrome.driver", AppConfig.getChromeDriverPath());
-            WebDriver driver = new ChromeDriver();
-            driver.get(AppConfig.getSiteUrl());
+            ProductsCategory productsCategory = PageFactory.initElements(driver, ProductsCategory.class);
 
-            Header header = PageFactory.initElements(driver, Header.class);
 
             Actions actions = new Actions(driver);
-            actions.moveToElement(header.womenCategory).build().perform();
-            header.pantsDenimCategory.click();
+            actions.moveToElement(productsCategory.womenCategory).build().perform();
+            productsCategory.pantsDenimCategory.click();
             ShopBy shopBy = PageFactory.initElements(driver, ShopBy.class);
             shopBy.price100_199.click();
             String sortPrice = shopBy.getPriceAfterSort().getText();
             System.out.println(sortPrice);
 
             ProductsGrid productsGrid = PageFactory.initElements(driver, ProductsGrid.class);
-            List<WebElement> productPriceContain = productsGrid.productPriceContains;
+            List<WebElement> productPriceContain = productsGrid.productPriceContainsShopBy;
 
             for (WebElement contain : productPriceContain) {
                 String productPrice = contain.getText();
@@ -111,20 +103,16 @@ public class SortByTest {
 
     }
 
-    public static class SortByPrice200Above {
+    public static class SortByPrice200Above extends TestBase{
 
         @Test
         public void sortByPrice200Above() {
 
-            System.setProperty("webdriver.chrome.driver", AppConfig.getChromeDriverPath());
-            WebDriver driver = new ChromeDriver();
-            driver.get(AppConfig.getSiteUrl());
-
-            Header header = PageFactory.initElements(driver, Header.class);
+            ProductsCategory productsCategory = PageFactory.initElements(driver, ProductsCategory.class);
 
             Actions actions = new Actions(driver);
-            actions.moveToElement(header.womenCategory).build().perform();
-            header.pantsDenimCategory.click();
+            actions.moveToElement(productsCategory.womenCategory).build().perform();
+            productsCategory.pantsDenimCategory.click();
             ShopBy shopBy = PageFactory.initElements(driver, ShopBy.class);
             shopBy.clickPrice200Above();
             String sortPrice = shopBy.priceAfterSort.getText();
@@ -134,7 +122,7 @@ public class SortByTest {
             System.out.println(convertSortPrice);
             ProductsGrid productsGrid = PageFactory.initElements(driver, ProductsGrid.class);
 
-            List<WebElement> productPriceContain = productsGrid.productPriceContains;
+            List<WebElement> productPriceContain = productsGrid.productPriceContainsShopBy;
 
             for (WebElement contain : productPriceContain) {
                 String productPrice = contain.getText();
@@ -147,7 +135,33 @@ public class SortByTest {
                 assertThat("Products price is lower than 200 RON", convertProductPrice, greaterThan(convertSortPrice));
 
             }
-
         }
-    }
-}
+
+            public static class SortByBlueColor extends TestBase {
+
+                @Test
+                public void sortByBlueColor() {
+
+                    ProductsCategory productsCategory = PageFactory.initElements(driver, ProductsCategory.class);
+                    Actions actions = new Actions(driver);
+                    actions.moveToElement(productsCategory.womenCategory).build().perform();
+                    productsCategory.pantsDenimCategory.click();
+                    ShopBy shopBy = PageFactory.initElements(driver, ShopBy.class);
+                    shopBy.blueColorButton.click();
+                    String blueButton = shopBy.blueColorButton.getAttribute("alt");
+                    ProductsGrid productsGrid = PageFactory.initElements(driver, ProductsGrid.class);
+
+
+                    List<WebElement> productColorContainer = productsGrid.productColorContainers;
+
+
+                    for (WebElement container : productColorContainer) {
+                        String productColor = container.getAttribute("alt");
+                        System.out.println(productColor);
+
+                        assertThat("The color is not the same", blueButton.toLowerCase(), is(productColor));
+
+
+                    }
+                }
+            }}}

@@ -6,9 +6,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ProductsGrid {
+
+    @FindBy(xpath = "//span[@class='price' and ./parent::*[not(contains(@class,'old-price'))]]")
+    private List<WebElement> actualProductPriceContainers;
 
     @FindBy(xpath = "//select[@title='Sort By']")
     private WebElement sortBySelectList;
@@ -25,7 +31,7 @@ public class ProductsGrid {
     }
 
     @FindBy(css = ".products-grid .price")
-    public List<WebElement> productPriceContains;
+    public List<WebElement> productPriceContainsShopBy;
 
     @FindBy(xpath = "//ul[@class='products-grid products-grid--max-4-col first last odd']//span[@class='swatch-label']//img")
     public List<WebElement> productColorContainers;
@@ -70,5 +76,44 @@ public class ProductsGrid {
     public List<WebElement> getProductNameContainers() {
         return productNameContainers;
     }
+
+    public List<String> getProductName() {
+        List<String> names = new ArrayList<>();
+        for (WebElement nameContainers : productNameContainers) {
+            String name = nameContainers.getText();
+            names.add(name);
+        }
+        return names;
+    }
+
+    public List<WebElement> getActualProductPriceContainers() {
+        return actualProductPriceContainers;
+    }
+
+    public List<Double> getActualProductPricesAsDoubles() {
+        List<Double> convertedPrices = new ArrayList<>();
+
+        for (WebElement priceContainer : actualProductPriceContainers) {
+            String priceAsText = priceContainer.getText();
+
+            //Matching: any character  except (^) dash,
+            // at least 1 character (+)
+            // followed by any character (.), at least 1 accurrence (+)
+            //Extracting first part, before dash
+            Pattern pattern = Pattern.compile("([^ ]+).+");
+            Matcher matcher = pattern.matcher(priceAsText);
+
+            if (matcher.find()) {
+                String priceAsTextWithoutCurrency = matcher.group(1);
+
+              priceAsTextWithoutCurrency = priceAsTextWithoutCurrency.replace(",", ".");
+
+                double convertedPrice = Double.parseDouble(priceAsTextWithoutCurrency);
+                convertedPrices.add(convertedPrice);
+            }
+        }
+        return convertedPrices;
+    }
+
 
 }
