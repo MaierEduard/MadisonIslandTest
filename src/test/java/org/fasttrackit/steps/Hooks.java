@@ -14,6 +14,8 @@ public class Hooks {
 
     @Before
     public void setup(Scenario scenario) {
+
+        System.out.println("Starting scenario" + scenario.getName());
         String browser = System.getProperty("browser" ,"chrome");
         DriverConfiguration.initDriver(browser);
 
@@ -23,6 +25,7 @@ public class Hooks {
 
     @After
     public void tearDown(Scenario scenario) throws InterruptedException {
+        System.out.println("End of scenario" + scenario.getName());
         Thread.sleep(500);
       //  scenario.write(" Custom information...");
         if (scenario.isFailed()) {
