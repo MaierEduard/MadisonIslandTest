@@ -8,6 +8,21 @@ import java.util.List;
 
 public class ShoppingCart {
 
+    @FindBy(id = "advice-required-entry-coupon_code")
+    private WebElement requiredFildMessageForApplyButton;
+
+    @FindBy(xpath = "//div[@class='cart-empty']//a")
+    private WebElement continueToShoppingButton;
+
+    @FindBy(xpath = "//td//dd[text()[normalize-space(.)='Black']]")
+    private WebElement productsColor;
+
+    @FindBy(id = "empty_cart_button")
+    private WebElement emptyCartButton;
+
+    @FindBy(xpath = "//table[@id='shopping-cart-table']//h2[@class='product-name']")
+    private List<WebElement> allProductsName;
+
     @FindBy(css = ".messages .error-msg")
     private WebElement errorMessageFromDiscountCode;
 
@@ -84,6 +99,7 @@ public class ShoppingCart {
         return new Select(countryFild);
     }
     @FindBy(id = "region_id")
+
     private WebElement stateFild;
 
     public Select getStateBySelectList() {
@@ -181,6 +197,25 @@ public class ShoppingCart {
 
     public WebElement getErrorMessageFromDiscountCode() {
         return errorMessageFromDiscountCode;
+    }
+    public List<WebElement> getAllProductsName() {
+        return allProductsName;
+    }
+
+    public WebElement getEmptyCartButton() {
+        return emptyCartButton;
+    }
+
+    public WebElement getProductsColor() {
+        return productsColor;
+    }
+
+    public WebElement getContinueToShoppingButton() {
+        return continueToShoppingButton;
+    }
+
+    public WebElement getRequiredFildMessageForApplyButton() {
+        return requiredFildMessageForApplyButton;
     }
 
     public WebElement getUpdateShoppingCart() {

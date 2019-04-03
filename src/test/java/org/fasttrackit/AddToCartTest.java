@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringContains.containsString;
@@ -179,7 +180,7 @@ public class AddToCartTest extends TestBase {
         WomenPage womenPage = PageFactory.initElements(driver, WomenPage.class);
         womenPage.productTrbecaSkinnyJean.click();
         productsPage.getBlackColorButton().click();
-        productsPage.size28Bottun.click();
+        productsPage.getSize28Bottun().click();
         productsPage.getAddToCartButton().click();
         driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         String secondProductInShoppingCart = shoppingCart.getSecondProduct().getText();
@@ -301,7 +302,7 @@ public class AddToCartTest extends TestBase {
         WomenPage womenPage = PageFactory.initElements(driver, WomenPage.class);
         womenPage.productTrbecaSkinnyJean.click();
         productsPage.getBlackColorButton().click();
-        productsPage.size28Bottun.click();
+        productsPage.getSize28Bottun().click();
         productsPage.getAddToCartButton().click();
         driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 

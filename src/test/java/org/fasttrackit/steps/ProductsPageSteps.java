@@ -7,8 +7,6 @@ import org.fasttrackit.TestBase;
 import org.fasttrackit.pageobjects.ProductsPage;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -23,16 +21,6 @@ public class ProductsPageSteps extends TestBase {
 
     @When("^I add([^\"]*)to cart$")
     public void clickAddToCartButton(String addToCartButton) throws InterruptedException {
-        String productPrice = productsPage.getRegularPriceWithoutDiscount().getText();
-        String[] splitProductPrice = productPrice.split(" ");
-        String productPriceNumber = splitProductPrice[0];
-        productPriceNumber = productPriceNumber.replace(",", ".");
-
-
-        //String productPriceConverted = Double.parseDouble(productPriceNumber);
-
-        getRegularPriceFromProductPage = productPriceNumber;
-
         driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         productsPage.getAddToCartButton().click();
         driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
@@ -53,18 +41,14 @@ public class ProductsPageSteps extends TestBase {
         productsPage.clickSizeM();
     }
 
+    private int totalQuantity;
+
     @And("^I change the quantity in (\\d+)$")
     public void iChangeTheQuantityIn(String quantity) {
         productsPage.clearQuantityFild();
         productsPage.numberOfQuantity(quantity);
-        List<String> numbersQuantityContain = new ArrayList<>();
-        numbersQuantityContain.add(quantity);
-        String firstNumber = numbersQuantityContain.get(0);
-        String secondNumber = numbersQuantityContain.get(1);
-        String sumQuantityNumber = firstNumber+secondNumber;
-        sumQuantityNumberInProductPage = sumQuantityNumber;
-
-
+        totalQuantity += Integer.parseInt(quantity);
+        getStepVariables().put("totalQuantity", totalQuantity);
     }
 
 
@@ -88,6 +72,28 @@ public class ProductsPageSteps extends TestBase {
 
     @And("^I select size 28$")
     public void iSelectSize() {
-        productsPage.size28Bottun.click();
+        productsPage.getSize28Bottun().click();
+    }
+
+    @When("^I verify price and I add product to cart$")
+    public void iVerifyPriceAndIAddProductToCart() {
+        String productPrice = productsPage.getRegularPriceWithoutDiscount().getText();
+        String[] splitProductPrice = productPrice.split(" ");
+        String productPriceNumber = splitProductPrice[0];
+        productPriceNumber = productPriceNumber.replace(",", ".");
+        getStepVariables().put("getRegularPriceFromProductPage", productPriceNumber);
+        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+        productsPage.getAddToCartButton().click();
+        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+
+    }
+
+    @And("^I add product to cart with color black$")
+    public void iAddProductToCartWithColorBlack() {
+
+        String titleForBlackButton = productsPage.getBlackColorButton().getAttribute("title");
+        getStepVariables().put("titleForBlackButton", titleForBlackButton);
+        productsPage.getAddToCartButton().click();
+
     }
 }

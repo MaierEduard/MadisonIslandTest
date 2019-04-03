@@ -5,7 +5,7 @@ Feature: Add products to cart
     Given I open the homepage
     And I open the product Chelsea Tee page
     And I select the blue color and size M
-    When I add product to cart
+    When I verify price and I add product to cart
     Then the "product price" is the same as in "shopping cart" page
 
 
@@ -14,7 +14,6 @@ Feature: Add products to cart
     Given I open the homepage
     And I open the product Chelsea Tee page
     And I select the black color and size M
-#    Flaviu
     And I change the quantity in 3
     And I add product to cart
     And I go back to the product page
@@ -72,7 +71,6 @@ Feature: Add products to cart
     Given I open the homepage
     And I open the product Chelsea Tee page
     And I select the black color and size M
-#    Flaviu
     And I change the quantity in 3
     When I add products to cart
     Then total price equals sum of individual prices
@@ -89,7 +87,6 @@ Feature: Add products to cart
     Then I expect the quantity of product to change
 
 
-# Flaviu;   is doua teste?
   Scenario: Check if I change quantities with 2 products in shopping to cart
     Given I open the homepage
     And I open the product Chelsea Tee page
@@ -102,6 +99,7 @@ Feature: Add products to cart
     And I add product to cart
     And I change quantity for first product in "2" and for second product in "3"
     When I click UPDATE SHOPPING CART
+    # Flaviu;
     Then I expect the both quantity of products to change
 
 
@@ -116,7 +114,7 @@ Feature: Add products to cart
     And I populate City field with "Cluj-Napoca"
     And I populate ZIP field with "356656"
     And I populate Discount Code field with "598558"
-    When I click the apply button to verify the discount code
+    When I click the apply button
     Then I expect a confirmation message that the code is not valid
 
 
@@ -131,7 +129,7 @@ Feature: Add products to cart
     And I populate City field with "<City>"
     And I populate ZIP field with "<Zip Code>"
     And I populate Discount Code field with "<Discount Code>"
-    When I click the apply button to verify the discount code
+    When I click the apply button
     Then I expect a confirmation message that the code is not valid
 
     Examples:
@@ -140,6 +138,65 @@ Feature: Add products to cart
       | România | Botoşani | Botoşani      | 259877   | I don't have any code 789## |
       | România | Bihor    | Oradea        | 2559877  | 789## I don't have any code |
       | România | Cluj     | Campia-Turzii | 2559877  | 789##79595565               |
+
+
+  Scenario: Products from shopping cart are also in mini-cart
+
+    Given I open the homepage and I add products to cart
+    When I click on mini-cart link to see the products
+#      Flaviu
+    Then the product lists are the same
+
+
+  Scenario: Check the GRAND TOTAL price is right
+
+    Given I open the homepage
+    And I open the product Chelsea Tee page
+    And I select the black color and size M
+    When I add product to cart
+        #Flaviu
+    Then sum of SUB TOTAL price and TAX is the same as GRAND TOTAL price
+
+
+  Scenario: Check the button EMPTY CART
+
+    Given I open the homepage
+    And I open the product Chelsea Tee page
+    And I select the black color and size M
+    And I add product to cart
+    When I click on empty cart
+    Then I expect to shopping cart to by empty
+
+  Scenario: check if the color of the product in product page is the same as shopping cart
+
+    Given I open the homepage
+    And I open the product Chelsea Tee page
+    And I select the black color and size M
+    When I add product to cart with color black
+    Then I expect the color to be the same
+
+
+  Scenario: check if shopping can continue after shopping cart has been emptied
+
+    Given I open the homepage
+    And I open the product Chelsea Tee page
+    And I select the black color and size M
+    And I add product to cart
+    And I click on empty cart
+    When I click to continue to shopping
+
+
+  Scenario: Check DISCOUNT CODE with empty field
+
+    Given I open the homepage
+    And I open the product Chelsea Tee page
+    And I select the black color and size M
+    And I add product to cart
+    When I click the apply button
+    Then I expect a warning message to fill the empty field
+
+
+
 
 
 

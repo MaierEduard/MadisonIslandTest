@@ -23,7 +23,7 @@ public class ProductsPage {
     private WebElement blueColorButton;
 
 
-    @FindBy(id = "option20")
+    @FindBy(id = "swatch20")
     private WebElement blackColorButton;
 
 
@@ -57,7 +57,7 @@ public class ProductsPage {
     private WebElement productName;
 
     @FindBy(id = "swatch67")
-    public WebElement size28Bottun;
+    private WebElement size28Bottun;
 
 
     public WebElement getProductName() {

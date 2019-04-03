@@ -7,7 +7,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -48,16 +47,6 @@ public class TestBase {
                 timeOutMillis > 0 && !((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete"));
     }
 
-
-     public static String getRegularPriceFromProductPage;
-
-    public static List populateNumberforQuantitiesFilds;
-
-    public static String sumQuantityNumberInProductPage;
-
-    public static String secondProductInShoppingCartGetText;
-
-    public static String getCouponCodeForDiscoundCodeFild;
 
     public static Map<String, Object> getStepVariables() {
         return STEP_VARIABLES;

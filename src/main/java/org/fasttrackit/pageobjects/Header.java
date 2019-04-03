@@ -1,12 +1,17 @@
 package org.fasttrackit.pageobjects;
 
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public class Header {
+
+    @FindBy(css = ".mini-products-list .product-name")
+    List<WebElement> productName;
+
+    @FindBy(className = "header-minicart")
+    private WebElement miniCart;
 
 
     @FindBy(id="search")
@@ -27,6 +32,11 @@ public class Header {
         homeLogo.click();
     }
 
+
+
+    public List<WebElement> getProductNameFromMiniCart() {
+        return productName;
+    }
     public WebElement getSearchButton() {
         return searchButton;
     }
@@ -36,4 +46,9 @@ public class Header {
     public WebElement getHomeLogo() {
         return homeLogo;
     }
+    public WebElement getMiniCart() {
+        return miniCart;
+    }
+
+
 }
