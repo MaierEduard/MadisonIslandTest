@@ -1,11 +1,19 @@
 package org.fasttrackit.pageobjects;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
 public class Header {
+
+
+    public WebElement selectCategory(String categoryName, WebDriver driver) {
+        return driver.findElement(By.xpath("//nav[@id='nav']//a[contains(text(),'" + categoryName + "')]"));
+    }
+
 
     @FindBy(css = ".mini-products-list .product-name")
     List<WebElement> productName;

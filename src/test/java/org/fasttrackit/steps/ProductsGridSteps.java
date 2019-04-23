@@ -6,6 +6,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.fasttrackit.TestBase;
 import org.fasttrackit.pageobjects.ProductsGrid;
+import org.fasttrackit.pageobjects.ProductsPage;
 import org.fasttrackit.pageobjects.WomenPage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -24,7 +25,7 @@ public class ProductsGridSteps extends TestBase {
 
     private ProductsGrid productsGrid = PageFactory.initElements(driver, ProductsGrid.class);
     private WomenPage womenPage = PageFactory.initElements(driver, WomenPage.class);
-
+    ProductsPage productsPage = PageFactory.initElements(driver, ProductsPage.class);
 
 
 
@@ -99,6 +100,15 @@ public class ProductsGridSteps extends TestBase {
         assertThat("Not enough products displayed", nameContainers.size(),greaterThanOrEqualTo(productNumber));
         String productName = nameContainers.get(productNumber - 1).getText();
         getStepVariables().put("addToCartProductName", productName);
+
     }
+
+
+    @And("^I select product \"([^\"]*)\"$")
+    public void iSelectProduct(String productName) {
+
+        productsGrid.selectProduct(productName,driver);
+    }
+
 }
 

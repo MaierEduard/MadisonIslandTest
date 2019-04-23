@@ -3,8 +3,9 @@ Feature: Add products to cart
   Scenario: Check price after adding product to cart against the one from product page
 
     Given I open the homepage
-    And I open the product Chelsea Tee page
-    And I select the blue color and size M
+    And I open "Chelsea Tee" product page
+    And I select the color "Blue"
+    And I select size "M"
     When I verify price and I add product to cart
     Then the "product price" is the same as in "shopping cart" page
 
@@ -12,12 +13,13 @@ Feature: Add products to cart
   Scenario: Same product is added twice with different quantities
 
     Given I open the homepage
-    And I open the product Chelsea Tee page
-    And I select the black color and size M
-    And I change the quantity in 3
+    And I open "Chelsea Tee" product page
+    And I select the color "Black"
+    And I select size "M"
+    And I change the quantity in product page in 3
     And I add product to cart
     And I go back to the product page
-    And I change the quantity in 2
+    And I change the quantity in product page in 2
     When I add product to cart
     Then the total quantity is listed
 
@@ -25,8 +27,8 @@ Feature: Add products to cart
   Scenario: Add a product to cart without color
 
     Given I open the homepage
-    And I open the product Chelsea Tee page
-    And I select the size M
+    And I open "Chelsea Tee" product page
+    And I select size "M"
     And I add product to cart
     Then the product is not added to cart
 
@@ -34,8 +36,8 @@ Feature: Add products to cart
   Scenario: Add product to cart without size
 
     Given I open the homepage
-    And I open the product Chelsea Tee page
-    And I select the color black
+    And I open "Chelsea Tee" product page
+    And I select the color "Black"
     When I add product to cart
     Then the product is not added to cart
 
@@ -43,8 +45,9 @@ Feature: Add products to cart
   Scenario: Remove product from cart (quantity = 1)
 
     Given I open the homepage
-    And I open the product Chelsea Tee page
-    And I select the blue color and size M
+    And I open "Chelsea Tee" product page
+    And I select the color "Black"
+    And I select size "M"
     And I add product to cart
     When I remove the first product
     Then the product is removed from cart
@@ -53,14 +56,15 @@ Feature: Add products to cart
   Scenario: Remove product from cart (quantity = 2)
 
     Given I open the homepage
-    And I open the product Chelsea Tee page
-    And I select the black color and size M
+    And I open "Chelsea Tee" product page
+    And I select the color "Black"
+    And I select size "M"
     And I add products to cart
     And I click on logo
-    And I select Pants & Denim from Women category
-    And I select Tribeca Skinny Jean
-    And I select the color black
-    And I select size 28
+    And I go to "Women" category and I select "Pants & Denim"
+    And I select product "TriBeCa Skinny Jean"
+    And I select the color "Black"
+    And I select size "28"
     And I add products to cart
     When I remove the second product
     Then the second product is removed from cart
@@ -69,9 +73,10 @@ Feature: Add products to cart
   Scenario: Sub total for products
 
     Given I open the homepage
-    And I open the product Chelsea Tee page
-    And I select the black color and size M
-    And I change the quantity in 3
+    And I open "Chelsea Tee" product page
+    And I select the color "Black"
+    And I select size "M"
+    And I change the quantity in product page in 3
     When I add products to cart
     Then total price equals sum of individual prices
 
@@ -79,35 +84,37 @@ Feature: Add products to cart
   Scenario: Check if i change quantity with one product in shopping cart
 
     Given I open the homepage
-    And I open the product Chelsea Tee page
-    And I select the black color and size M
+    And I open "Chelsea Tee" product page
+    And I select the color "Black"
+    And I select size "M"
     And I add product to cart
-    When I change quantity in "2"
+    When I change quantity in 2
     And I click the update button
     Then I expect the quantity of product to change
 
 
   Scenario: Check if I change quantities with 2 products in shopping to cart
     Given I open the homepage
-    And I open the product Chelsea Tee page
-    And I select the black color and size M
+    And I open "Chelsea Tee" product page
+    And I select the color "Black"
+    And I select size "M"
     And I add product to cart
-    And I select Pants & Denim from Women category
-    And I select Tribeca Skinny Jean
-    And I select the color black
-    And I select size 28
+    And I go to "Women" category and I select "Pants & Denim"
+    And I select product "TriBeCa Skinny Jean"
+    And I select the color "Black"
+    And I select size "28"
     And I add product to cart
     And I change quantity for first product in "2" and for second product in "3"
     When I click UPDATE SHOPPING CART
-    # Flaviu;
     Then I expect the both quantity of products to change
 
 
   Scenario: Check if DISCOUNT CODES work correctly with wrong code
 
     Given I open the homepage
-    And I open the product Chelsea Tee page
-    And I select the black color and size M
+    And I open "Chelsea Tee" product page
+    And I select the color "Black"
+    And I select size "M"
     And I add product to cart
     And I select country "România"
     And I select state "Cluj"
@@ -121,8 +128,9 @@ Feature: Add products to cart
   Scenario Outline: Check if DISCOUNT CODES work correctly with multiple wrong code
 
     Given I open the homepage
-    And I open the product Chelsea Tee page
-    And I select the black color and size M
+    And I open "Chelsea Tee" product page
+    And I select the color "Black"
+    And I select size "M"
     And I add product to cart
     And I select country "<Country>"
     And I select state "<State>"
@@ -151,8 +159,9 @@ Feature: Add products to cart
   Scenario: Check the GRAND TOTAL price is right
 
     Given I open the homepage
-    And I open the product Chelsea Tee page
-    And I select the black color and size M
+    And I open "Chelsea Tee" product page
+    And I select the color "Black"
+    And I select size "M"
     When I add product to cart
         #Flaviu
     Then sum of SUB TOTAL price and TAX is the same as GRAND TOTAL price
@@ -161,8 +170,9 @@ Feature: Add products to cart
   Scenario: Check the button EMPTY CART
 
     Given I open the homepage
-    And I open the product Chelsea Tee page
-    And I select the black color and size M
+    And I open "Chelsea Tee" product page
+    And I select the color "Black"
+    And I select size "M"
     And I add product to cart
     When I click on empty cart
     Then I expect to shopping cart to by empty
@@ -170,17 +180,19 @@ Feature: Add products to cart
   Scenario: check if the color of the product in product page is the same as shopping cart
 
     Given I open the homepage
-    And I open the product Chelsea Tee page
-    And I select the black color and size M
-    When I add product to cart with color black
+    And I open "Chelsea Tee" product page
+    And I select the color "Black"
+    And I select size "M"
+    When I add product to cart with color "Black"
     Then I expect the color to be the same
 
 
   Scenario: check if shopping can continue after shopping cart has been emptied
 
     Given I open the homepage
-    And I open the product Chelsea Tee page
-    And I select the black color and size M
+    And I open "Chelsea Tee" product page
+    And I select the color "Black"
+    And I select size "M"
     And I add product to cart
     And I click on empty cart
     When I click to continue to shopping
@@ -189,16 +201,31 @@ Feature: Add products to cart
   Scenario: Check DISCOUNT CODE with empty field
 
     Given I open the homepage
-    And I open the product Chelsea Tee page
-    And I select the black color and size M
+    And I open "Chelsea Tee" product page
+    And I select the color "Black"
+    And I select size "M"
     And I add product to cart
     When I click the apply button
     Then I expect a warning message to fill the empty field
 
 
+  Scenario: Check the button UPDATE SHOPPING CART
+
+    Given I open the homepage
+    And I open "Chelsea Tee" product page
+    And I select the color "Black"
+    And I select size "M"
+    And I add product to cart
+    And I change quantity in 4
+    When  I click UPDATE SHOPPING CART
+    Then I expect the quantity of product to change
 
 
+#  //table[@id='shopping-cart-totals-table']//td[./preceding-sibling::td[.//*[text()='Grand Total']]]//span[@class='price']
 
+#  //td[./preceding-sibling::td[.//*[text()[normalize-space(.)='Tax']]]]//span[@class='price']
+#  //td[./preceding-sibling::td[normalize-space(text())='Subtotal']]//span[@class='price']
+# //td[./preceding-sibling::td[.//*[contains(normalize-space(text()),'Grand Total')]]]//span[@class='price']
 
 
 

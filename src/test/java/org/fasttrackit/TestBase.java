@@ -7,12 +7,15 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 public class TestBase {
     protected WebDriver driver = DriverConfiguration.getDriver();
 
+    private static final Map<String, List<String>> STEP_LIST_VARIABLES = new HashMap<>();
+    private static final Map<String, String> STEP_STRING_VARIABLES = new HashMap<>();
     private static final Map<String, Object> STEP_VARIABLES = new HashMap<>();
 
 
@@ -27,7 +30,7 @@ public class TestBase {
 
     @After
     public void tearDown() {
-      //  driver.quit();
+        //  driver.quit();
 
     }
 
@@ -48,11 +51,17 @@ public class TestBase {
     }
 
 
-    public static Map<String, Object> getStepVariables() {
+    public static Map<String, List<String>> getStepListVariables() {
+        return STEP_LIST_VARIABLES;
+    }
+
+    public static Map<String, String> getStepStringVariables() {
+        return STEP_STRING_VARIABLES;
+    }
+    public static Map<String,Object> getStepVariables() {
         return STEP_VARIABLES;
     }
+
 }
-
-
 
 

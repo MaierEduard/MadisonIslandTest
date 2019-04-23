@@ -15,19 +15,21 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.StringContains.containsString;
+
 
 public class AddToCArtSteps extends TestBase {
 
+    Header header = PageFactory.initElements(driver, Header.class);
     ShoppingCart shoppingCart = PageFactory.initElements(driver, ShoppingCart.class);
-    MiniCartSteps miniCartSteps = PageFactory.initElements(driver,MiniCartSteps.class);
+    MiniCartSteps miniCartSteps = PageFactory.initElements(driver, MiniCartSteps.class);
     ProductsPage productsPage = PageFactory.initElements(driver, ProductsPage.class);
-    ProductsGrid productsGrid = PageFactory.initElements(driver,ProductsGrid.class);
-    ProductsCategory productsCategory = PageFactory.initElements(driver,ProductsCategory.class);
-    WomenPage womenPage = PageFactory.initElements(driver,WomenPage.class);
+    ProductsGrid productsGrid = PageFactory.initElements(driver, ProductsGrid.class);
+    ProductsCategory productsCategory = PageFactory.initElements(driver, ProductsCategory.class);
+    WomenPage womenPage = PageFactory.initElements(driver, WomenPage.class);
 
     @And("^I go back to the product page$")
     public void iGoBackToTheProductPage() {
@@ -40,13 +42,12 @@ public class AddToCArtSteps extends TestBase {
         shoppingCart.getFirstRemoveButton().click();
 
 
-
     }
 
     @Then("^the product is removed from cart$")
     public void theProductIsRemovedFromCart() {
         String msgEmptyShoppingCart = shoppingCart.getMsgEmptyShoppingCart().getText();
-        assertThat("SHOPPING CART IS EMPTY",containsString(msgEmptyShoppingCart.toUpperCase()));
+        assertThat("SHOPPING CART IS EMPTY", containsString(msgEmptyShoppingCart.toUpperCase()));
     }
 
     @When("^I remove the second product$")
@@ -61,13 +62,13 @@ public class AddToCArtSteps extends TestBase {
     @Then("^the second product is removed from cart$")
     public void theSecondProductIsRemovedFromCart() {
         List<WebElement> productContain = driver.findElements(By.cssSelector(".cart-table.data-table .product-name"));
-        for (WebElement products:productContain) {
-          String productsName = products.getText();
+        for (WebElement products : productContain) {
+            String productsName = products.getText();
 
-          assertThat("can't remove the product", getStepVariables().get("secondProduct"), not(is(productsName)) );
+            assertThat("can't remove the product", getStepVariables().get("secondProduct"), not(is(productsName)));
 
+        }
     }
-}
 
     @Then("^total price equals sum of individual prices$")
     public void totalPriceEqualsSumOfIndividualPrices() {
@@ -88,13 +89,13 @@ public class AddToCArtSteps extends TestBase {
         double convertTotalPrice = Double.parseDouble(intTotalPrice);
         System.out.println(convertTotalPrice);
 
-        assertThat("Total price is wrong" ,convertProductPrice*convertProductQuantity, is(convertTotalPrice) );
+        assertThat("Total price is wrong", convertProductPrice * convertProductQuantity, is(convertTotalPrice));
 
     }
 
 
     @Then("^the \"([^\"]*)\" is the same as in \"([^\"]*)\" page$")
-    public void theIsTheSameAsInPage (String productPagePrice, String productPriceInShoppinCart) {
+    public void theIsTheSameAsInPage(String productPagePrice, String productPriceInShoppinCart) {
 
         String shoppingCartPrice = shoppingCart.getProductPrice().getText();
         String[] splitAddToCartPrice = shoppingCartPrice.split(" ");
@@ -102,14 +103,14 @@ public class AddToCArtSteps extends TestBase {
         String shoppingCartPriceConverted = shoppingCartPriceAsText.replace(",", ".");
 
         productPriceInShoppinCart = shoppingCartPriceConverted;
-        System.out.println("the regular price is : "+ getStepVariables().get("getRegularPriceFromProductPage"));
+        System.out.println("the regular price is : " + getStepVariables().get("getRegularPriceFromProductPage"));
         System.out.println("shopping cart price : " + productPriceInShoppinCart);
 
         assertThat("The price is not the same", getStepVariables().get("getRegularPriceFromProductPage"), equalTo(productPriceInShoppinCart));
     }
 
 
-    @And("^I change quantity in \"([^\"]*)\"$")
+    @And("^I change quantity in ([^\"]*)$")
     public void iChangeQuantityIn(String numberQuantity) {
 
         shoppingCart.getNumberOfQuantity = numberQuantity;
@@ -122,9 +123,9 @@ public class AddToCArtSteps extends TestBase {
     public void iExpectTheQuantityOfProductToChange() {
         String quantityAfterChanged = shoppingCart.getFirstQuantityField().getAttribute("value");
         System.out.println(quantityAfterChanged);
-       String quantityBeforeChanged = shoppingCart.getNumberOfQuantity;
+        String quantityBeforeChanged = shoppingCart.getNumberOfQuantity;
         System.out.println(quantityBeforeChanged);
-        assertThat("The Quantity is not changed",quantityAfterChanged, equalTo(quantityBeforeChanged) );
+        assertThat("The Quantity is not changed", quantityAfterChanged, equalTo(quantityBeforeChanged));
     }
 
 
@@ -132,7 +133,7 @@ public class AddToCArtSteps extends TestBase {
     public void iClickTheUpdateButton() throws InterruptedException {
 
         shoppingCart.getQuantityUpdate().click();
-       Thread.sleep(5000);
+        Thread.sleep(5000);
 
     }
 
@@ -144,12 +145,11 @@ public class AddToCArtSteps extends TestBase {
         populateNumber.add(secondQuantity);
         getStepVariables().put("populateQuantityFields", populateNumber);
         System.out.println(getStepVariables().get("populateQuantityFields"));
- shoppingCart.clearAllQuantitiesFields();
- shoppingCart.getFirstQuantityField().sendKeys(firstQuantity);
- shoppingCart.getSecondQunatityField().sendKeys(secondQuantity);
+        shoppingCart.clearAllQuantitiesFields();
+        shoppingCart.getFirstQuantityField().sendKeys(firstQuantity);
+        shoppingCart.getSecondQunatityField().sendKeys(secondQuantity);
 
     }
-
 
 
     @Then("^I expect the both quantity of products to change$")
@@ -159,7 +159,7 @@ public class AddToCArtSteps extends TestBase {
             String quantitiesAttributeAfterUpdate = contains.getAttribute("value");
             System.out.println("after update " + quantitiesAttributeAfterUpdate);
 
-           // assertThat("the Quantities is not changed", quantitiesAttributeAfterUpdate, is(getStepVariables().get("populateQuantityFields")));
+            // assertThat("the Quantities is not changed", quantitiesAttributeAfterUpdate, is(getStepVariables().get("populateQuantityFields")));
 
         }
     }
@@ -176,7 +176,7 @@ public class AddToCArtSteps extends TestBase {
         System.out.println("sum of the quantity in product page is : " + getStepVariables().get("totalQuantity"));
         String totalQuantityLikeText = shoppingCart.getFirstQuantityField().getAttribute("value");
         int totalQuantityInShoppingToCart = Integer.parseInt(totalQuantityLikeText);
-            assertThat("total quantity in shopping cart is wrong ",totalQuantityInShoppingToCart, equalTo(getStepVariables().get("totalQuantity")));
+        assertThat("total quantity in shopping cart is wrong ", totalQuantityInShoppingToCart, equalTo(getStepVariables().get("totalQuantity")));
 
     }
 
@@ -190,13 +190,13 @@ public class AddToCArtSteps extends TestBase {
 
     @And("^I select state \"([^\"]*)\"$")
     public void iSelectState(String state) {
-     shoppingCart.getStateBySelectList().selectByVisibleText(state);
+        shoppingCart.getStateBySelectList().selectByVisibleText(state);
 
     }
 
     @And("^I populate City field with \"([^\"]*)\"$")
     public void iPopulateCityFieldWith(String city) {
-    shoppingCart.getCityField().sendKeys(city);
+        shoppingCart.getCityField().sendKeys(city);
     }
 
     @And("^I populate ZIP field with \"([^\"]*)\"$")
@@ -207,7 +207,7 @@ public class AddToCArtSteps extends TestBase {
 
     @And("^I populate Discount Code field with \"([^\"]*)\"$")
     public void iPopulateDiscountCodeFieldWith(String couponCode) {
-     shoppingCart.getDiscountCode().sendKeys(couponCode);
+        shoppingCart.getDiscountCode().sendKeys(couponCode);
 
         getStepVariables().put("couponCode", couponCode);
     }
@@ -220,8 +220,8 @@ public class AddToCArtSteps extends TestBase {
     @Then("^I expect a confirmation message that the code is not valid$")
     public void iExpectAConfirmationMessageThatTheCodeIsNotValid() {
 
-       String messageConfirmation = shoppingCart.getErrorMessageFromDiscountCode().getText();
-       assertThat("The Discount Code it is work ",messageConfirmation, is("Coupon code \""+getStepVariables().get("couponCode")+"\" is not valid."));
+        String messageConfirmation = shoppingCart.getErrorMessageFromDiscountCode().getText();
+        assertThat("The Discount Code it is work ", messageConfirmation, is("Coupon code \"" + getStepVariables().get("couponCode") + "\" is not valid."));
 
     }
 
@@ -242,25 +242,31 @@ public class AddToCArtSteps extends TestBase {
     }
 
     @Then("^the product lists are the same$")
-    public void theProductListsAreTheSame() throws InterruptedException {
-        Thread.sleep(5000);
+    public void theProductListsAreTheSame() {
 
-        for (WebElement containsName : shoppingCart.getAllProductsName()) {
-            Thread.sleep(5000);
-            String productsName = containsName.getText();
-            System.out.println(" name from shopping cart : " + productsName);
 
-            assertThat("the list of products is not the same", getStepVariables().get("productNameFromMiniCart"),equalTo(containsInAnyOrder(productsName)));
-        }
+        for (WebElement productName : shoppingCart.getAllProductsName()) {
+            System.out.println(productName.getText());
+         assertTrue("the list of products is not the same",getStepListVariables().get("productsInMiniCart").contains(productName.getText()));
+           }
+
+//        for (WebElement containsName : shoppingCart.getAllProductsName()) {
+//            String productsName = containsName.getText();
+//
+//            assertTrue("the list of products is not the same", getStepListVariables().get("productsInMiniCart").contains(productsName));
+       // }
     }
+
 
     @Then("^sum of SUB TOTAL price and TAX is the same as GRAND TOTAL price$")
     public void sumOfSUBTOTALPriceAndTAXIsTheSameAsGRANDTOTALPrice() {
 
-       String productPrice = shoppingCart.getProductPrice().getText();
-       String[] productPriceSplit = productPrice.split(" ");
+        String productPrice = shoppingCart.getProductPrice().getText();
+        String[] productPriceSplit = productPrice.split(" ");
         String productPriceNumber = productPriceSplit[0];
         productPriceNumber = productPriceNumber.replace(",", ".");
+        System.out.println("Product price number is : " + productPriceNumber);
+
 
     }
 
@@ -299,4 +305,24 @@ public class AddToCArtSteps extends TestBase {
         assertThat("the warning is not displayed", warningRequiredField, is(expectedWarning));
 
     }
+
+    @Then("^jcsdonskcnsdklnsd$")
+    public void jcsdonskcnsdklnsd() {
+
+        List<WebElement> productsInShoppingCart = shoppingCart.getAllProductsName();
+        String products = " ";
+
+        for (WebElement contains : productsInShoppingCart) {
+            String productsNameInShoppingCart = contains.getText();
+            productsNameInShoppingCart = productsNameInShoppingCart + " ";
+
+            products += productsNameInShoppingCart;
+            System.out.println("products name in shopping cart " + products);
+        }
+
+        //assertThat("The list of products is not the same",getStepVariables().get("productsInMiniCart"), containsInAnyOrder(products));
+
+    }
+
+
 }

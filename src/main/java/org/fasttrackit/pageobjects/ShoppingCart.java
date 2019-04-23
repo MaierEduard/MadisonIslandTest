@@ -8,6 +8,9 @@ import java.util.List;
 
 public class ShoppingCart {
 
+    @FindBy()
+    private WebElement subTotalPriceInCheckout;
+
     @FindBy(id = "advice-required-entry-coupon_code")
     private WebElement requiredFildMessageForApplyButton;
 
@@ -38,6 +41,9 @@ public class ShoppingCart {
 
     @FindBy(css = ".first .input-text")
     private WebElement firstQuantityField;
+
+    @FindBy(xpath = "//tr[@class='last even']//input[@class='input-text qty']")
+    private WebElement secondQuantityField;
 
     @FindBy(css = ".last .product-cart-actions .input-text.qty")
     private WebElement secondQunatityField;
@@ -216,6 +222,10 @@ public class ShoppingCart {
 
     public WebElement getRequiredFildMessageForApplyButton() {
         return requiredFildMessageForApplyButton;
+    }
+
+    public WebElement getSecondQuantityField() {
+        return secondQuantityField;
     }
 
     public WebElement getUpdateShoppingCart() {

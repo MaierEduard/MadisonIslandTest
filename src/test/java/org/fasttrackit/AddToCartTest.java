@@ -254,6 +254,26 @@ public class AddToCartTest extends TestBase {
 
         }
 
+        @Test
+    public void addToCartFromSearchResultTest() {
+
+        String keyword = "camera";
+
+        Header header = PageFactory.initElements(driver, Header.class);
+        ProductsGrid productsGrid = PageFactory.initElements(driver, ProductsGrid.class);
+
+        header.search(keyword);
+
+        String largeCameraBag = "Large Camera Bag";
+
+        productsGrid.addProductToCart(largeCameraBag, driver);
+        String succesMessage = driver.findElement(By.className("success-msg")).getText();
+
+        assertThat("Unexpected success message",succesMessage, is(largeCameraBag + " was added to your shopping cart."));
+
+
+    }
+
 
 
     @Test
@@ -320,7 +340,8 @@ public class AddToCartTest extends TestBase {
     populateFields.add(secondNumber);
     shoppingCart.getUpdateShoppingCart().click();
 
-    for (WebElement contains : shoppingCart.getQuantitiesFields()) {
+List<WebElement>getQuantity = shoppingCart.getQuantitiesFields();
+    for (WebElement contains : getQuantity) {
         String numberValueOfQuantities = contains.getAttribute("value");
 
         assertThat("the quantity not changed",numberValueOfQuantities, equalTo(populateFields));

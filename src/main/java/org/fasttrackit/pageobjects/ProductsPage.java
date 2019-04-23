@@ -1,9 +1,51 @@
 package org.fasttrackit.pageobjects;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class ProductsPage {
+
+    private WebElement getSizeButton(String size, WebDriver driver) {
+        return driver.findElement(By.xpath("//ul[@id='configurable_swatch_size']//span[contains(text(),'" + size + "')]"));
+    }
+
+    public void selectSize(String size, WebDriver driver) {
+        getSizeButton(size, driver).click();
+    }
+
+    public WebElement getColorButton(String color, WebDriver driver) {
+        return driver.findElement(By.xpath("//ul[@id='configurable_swatch_color']//img[@alt='" + color + "']"));
+    }
+
+    public void selectColor(String color, WebDriver driver) {
+        getColorButton(color, driver).click();
+    }
+
+    public String getAttributeColorButton(String color, WebDriver driver) {
+       String titleForColorButton = getColorButton(color, driver).getAttribute("title");
+        return color;
+    }
+
+    @FindBy(xpath = "//li[@class='inline-label']//label[@for='summary_field']")
+    private WebElement summaryField;
+
+    @FindBy(xpath = "//p[@class='rating-links']//a[contains(text(),'Add Your Review')]")
+    private WebElement addYourReviewButton;
+
+    @FindBy(xpath = "//div[@class='review-heading']//h2[contains(text(), 'Customer Reviews')]")
+    private WebElement customerReviewAsText;
+
+    @FindBy(className = "back-link")
+    private WebElement backToMainProductInfoButton;
+
+    @FindBy(xpath = "//p[@class='rating-links']//a[contains(text(), 'Review(s)')]")
+    private WebElement reviewButton;
+
+    @FindBy(css = ".gallery-image.visible")
+    private WebElement chelseaTeeColorPicture;
+
 
     @FindBy(className = "option-m")
     private WebElement sizeM_Button;
@@ -98,6 +140,30 @@ public class ProductsPage {
 
     public WebElement getBlackColorButton() {
         return blackColorButton;
+    }
+
+    public WebElement getChelseaTeeColorPicture() {
+        return chelseaTeeColorPicture;
+    }
+
+    public WebElement getReviewButton() {
+        return reviewButton;
+    }
+
+    public WebElement getBackToMainProductInfoButton() {
+        return backToMainProductInfoButton;
+    }
+
+    public WebElement getCustomerReviewAsText() {
+        return customerReviewAsText;
+    }
+
+    public WebElement getAddYourReviewButton() {
+        return addYourReviewButton;
+    }
+
+    public WebElement getSummaryField() {
+        return summaryField;
     }
 
     public WebElement getSize28Bottun() {

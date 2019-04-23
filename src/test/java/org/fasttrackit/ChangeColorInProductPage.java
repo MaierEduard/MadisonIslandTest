@@ -1,9 +1,13 @@
 package org.fasttrackit;
 
+import org.fasttrackit.pageobjects.Header;
+import org.fasttrackit.pageobjects.ProductsGrid;
+import org.fasttrackit.pageobjects.ProductsPage;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -17,8 +21,13 @@ public class ChangeColorInProductPage {
     WebDriver driver = new ChromeDriver();
     driver.get("https://fasttrackit.org/selenium-test");
 
+    Header header = PageFactory.initElements(driver,Header.class);
+    ProductsPage productsPage = PageFactory.initElements(driver,ProductsPage.class);
+    ProductsGrid productsGrid = PageFactory.initElements(driver,ProductsGrid.class);
 
-    driver.findElement(By.xpath("//div[@class='page-header-container']//img[@class='large']")).click();
+    header.clickHomeLogo();
+    productsGrid.clickProductChelseaTeeHomePage();
+
     driver.findElement(By.xpath("//div[@class='product-info']//a[@href='https://fasttrackit.org/selenium-test/chelsea-tee-703.html']")).click();
     driver.findElement(By.className("option-black")).click();
     String selectColorBlack = driver.findElement(By.id("select_label_color")).getText();

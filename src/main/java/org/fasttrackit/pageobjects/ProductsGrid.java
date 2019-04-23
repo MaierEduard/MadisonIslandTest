@@ -13,6 +13,14 @@ import java.util.regex.Pattern;
 
 public class ProductsGrid {
 
+    private WebElement getProducts(String productName, WebDriver driver) {
+        return driver.findElement(By.xpath("//div[@class='category-products']//a[contains(text(), '" + productName + "')]"));
+    }
+
+    public void selectProduct(String productName, WebDriver driver) {
+        getProducts(productName,driver).click();
+    }
+
 
     @FindBy(xpath = "//div[@class='product-info' and .//button[contains(@class, 'btn-cart')]]//h2[@class='product-name']/a")
     private List<WebElement>addToCArtProductNameContainer;
@@ -44,12 +52,13 @@ public class ProductsGrid {
     @FindBy(css = ".product-name > a")
     private List<WebElement> productNameContainers;
 
-    public WebElement getAddToCartButton(String productName, WebDriver driver) {
+
+    private WebElement getAddToCartButton(String productName, WebDriver driver) {
         return driver.findElement(By.xpath("//div[@class='product-info' and .//a[text()='" + productName + "']]//button[@title='Add to Cart']"));
     }
 
     public void addProductToCart(String productName, WebDriver driver) {
-        getAddToCartButton(productName, driver).click();
+        getAddToCartButton(productName,driver).click();
     }
 
     @FindBy(xpath = "//div[@class='product-info']//a[@title='Chelsea Tee']")
