@@ -9,7 +9,7 @@ Feature: Products Sorting
 #    #And I search products by "camera"
 #    When I sort products by "Price" in descending order
 #    Then all products are sorted by "price" in descending order
-
+#
   Scenario Outline: Sort product by different criteria
     Given I open the homepage
     And I search products by "vase"

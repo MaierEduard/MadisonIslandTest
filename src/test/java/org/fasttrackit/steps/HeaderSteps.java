@@ -56,7 +56,7 @@ public class HeaderSteps extends TestBase {
             miniCartProducts.add(productName);
 
         }
-        getStepListVariables().put("mini", miniCartProducts);
+        getStepVariables().put("mini", miniCartProducts);
 
 
     }
@@ -70,15 +70,17 @@ List<String> asssssss = new ArrayList<>();
             String productNameInShoppingCart = productContains.getText();
             asssssss.add(productNameInShoppingCart);
 
+           // assertThat("product list is not the same", getStepListVariables().get("mini"),containsInAnyOrder(productContains.getText()));
 
 
            // assertTrue("product list is not the same", getStepListVariables().get("mini").contains(productNameInShoppingCart));
         }
 
-        getStepListVariables().put("shopping", asssssss);
-        System.out.println("mini"+getStepListVariables().get("mini"));
-        System.out.println("shopping"+ getStepListVariables().get("shopping"));
-        assertThat("product list is not the same", getStepListVariables().get("mini"), containsInAnyOrder(getStepListVariables().get("shopping").toArray()));
+        getStepVariables().put("shopping", asssssss);
+        System.out.println("mini"+getStepVariables().get("mini"));
+        System.out.println("shopping"+ getStepVariables().get("shopping"));
+        //noinspection unchecked - This is surely a list
+        assertThat("product list is not the same", (List<String>) getStepVariables().get("mini"), containsInAnyOrder(((List<String>) getStepVariables().get("shopping")).toArray()));
        // assertThat("product list is not the same", asssssss, containsInAnyOrder(getStepListVariables().get("mini").toArray()));
 
     }
