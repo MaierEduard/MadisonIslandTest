@@ -80,7 +80,7 @@ public class AddToCartTest extends TestBase {
         ProductsPage productsPage = PageFactory.initElements(driver, ProductsPage.class);
         productsPage.clickSizeM();
         productsPage.getBlueColorButton().click();
-        productsPage.clearQuantityFild();
+        productsPage.clearQuantityField();
         String firstQuantityNumber = "2";
         productsPage.numberOfQuantity(firstQuantityNumber);
         String firstQuantityInProductPage = productsPage.getQuantity().getAttribute("value");
@@ -93,7 +93,7 @@ public class AddToCartTest extends TestBase {
         driver.navigate().back();
         Thread.sleep(2000);
         String seconndQuantityNumber = "3";
-        productsPage.clearQuantityFild();
+        productsPage.clearQuantityField();
         productsPage.numberOfQuantity(seconndQuantityNumber);
 
         String secondQuantityInProductPage = productsPage.getQuantity().getAttribute("value");
@@ -210,7 +210,7 @@ public class AddToCartTest extends TestBase {
         productsGrid.clickProductChelseaTeeHomePage();
         productsPage.getBlackColorButton().click();
         productsPage.clickSizeM();
-        productsPage.clearQuantityFild();
+        productsPage.clearQuantityField();
         productsPage.getQuantity().sendKeys("3");
         Thread.sleep(1000);
         productsPage.getAddToCartButton().click();

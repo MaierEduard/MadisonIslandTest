@@ -104,8 +104,8 @@ public class ShoppingCart {
     public Select getCountryBySelectList() {
         return new Select(countryFild);
     }
-    @FindBy(id = "region_id")
 
+    @FindBy(id = "region_id")
     private WebElement stateFild;
 
     public Select getStateBySelectList() {

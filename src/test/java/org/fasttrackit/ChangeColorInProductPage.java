@@ -32,13 +32,13 @@ public class ChangeColorInProductPage {
     driver.findElement(By.className("option-black")).click();
     String selectColorBlack = driver.findElement(By.id("select_label_color")).getText();
     Thread.sleep(1000);
-    String srcForImigieBeforeSelectTheColor = driver.findElement(By.cssSelector(".gallery-image.visible")).getAttribute("src");
+    String srcForImagineBeforeSelectTheColor = driver.findElement(By.cssSelector(".gallery-image.visible")).getAttribute("src");
     System.out.println(selectColorBlack);
     assertThat("Black",is(selectColorBlack));
     System.out.println("Black color is selected");
     String srcForImigieAfterSelectTheColor = driver.findElement(By.cssSelector(".gallery-image.visible")).getAttribute("src");
     System.out.println(srcForImigieAfterSelectTheColor);
-    assertThat("We select black but T-shirt is another color",srcForImigieBeforeSelectTheColor, is(srcForImigieAfterSelectTheColor));
+    assertThat("We select black but T-shirt is another color",srcForImagineBeforeSelectTheColor, is(srcForImigieAfterSelectTheColor));
 
 
 

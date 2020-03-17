@@ -72,7 +72,7 @@ public class ProductsPage {
     @FindBy(css = ".add-to-cart .qty-wrapper  .input-text.qty")
     private WebElement quantity;
 
-    public void clearQuantityFild() {
+    public void clearQuantityField() {
         quantity.clear();
     }
 

@@ -16,7 +16,7 @@ public class Header {
 
 
     @FindBy(css = ".mini-products-list .product-name")
-    List<WebElement> productName;
+    List<WebElement> productNameInMiniCart;
 
     @FindBy(className = "header-minicart")
     private WebElement miniCart;
@@ -43,7 +43,7 @@ public class Header {
 
 
     public List<WebElement> getProductNameFromMiniCart() {
-        return productName;
+        return productNameInMiniCart;
     }
     public WebElement getSearchButton() {
         return searchButton;

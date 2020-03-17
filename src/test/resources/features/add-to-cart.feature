@@ -81,7 +81,7 @@ Feature: Add products to cart
     Then total price equals sum of individual prices
 
 
-  Scenario: Check if i change quantity with one product in shopping cart
+  Scenario: Check if I change quantity with one product in shopping cart
 
     Given I open the homepage
     And I open "Chelsea Tee" product page
@@ -93,7 +93,7 @@ Feature: Add products to cart
     Then I expect the quantity of product to change
 
 
-  Scenario: Check if I change quantities with 2 products in shopping to cart
+  Scenario: Check if I change quantities to 2 products in shopping to cart
     Given I open the homepage
     And I open "Chelsea Tee" product page
     And I select the color "Black"
@@ -152,7 +152,6 @@ Feature: Add products to cart
 
     Given I open the homepage and I add products to cart
     When I click on mini-cart link to see the products
-#      Flaviu
     Then the product lists are the same
 
 
@@ -163,7 +162,6 @@ Feature: Add products to cart
     And I select the color "Black"
     And I select size "M"
     When I add product to cart
-        #Flaviu
     Then sum of SUB TOTAL price and TAX is the same as GRAND TOTAL price
 
 

@@ -21,7 +21,7 @@ public class ProductsPageSteps extends TestBase {
 
 
     @When("^I add([^\"]*)to cart$")
-    public void clickAddToCartButton(String addToCartButton) throws InterruptedException {
+    public void clickAddToCartButton(String addToCartButton) {
         driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         productsPage.getAddToCartButton().click();
         driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
@@ -46,7 +46,7 @@ public class ProductsPageSteps extends TestBase {
 
     @And("^I change the quantity in product page in (\\d+)$")
     public void iChangeTheQuantityIn(String quantity) {
-        productsPage.clearQuantityFild();
+        productsPage.clearQuantityField();
         productsPage.numberOfQuantity(quantity);
         totalQuantity += Integer.parseInt(quantity);
         getStepVariables().put("totalQuantity", totalQuantity);
