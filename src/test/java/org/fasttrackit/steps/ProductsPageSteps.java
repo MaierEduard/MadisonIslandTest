@@ -102,7 +102,7 @@ public class ProductsPageSteps extends TestBase {
     @Then("^expect the color of the product to change in black$")
     public void expectTheColorOfTheProductToChangeInBlack() {
 
-        String expectedColor = "https://fasttrackit.org/selenium-test/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/m/t/mtk004t.jpg";
+        String expectedColor = "http://testfasttrackit.info/selenium-test/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/m/t/mtk004t.jpg";
         String srcForChelseaTeeBlack = productsPage.getChelseaTeeColorPicture().getAttribute("src");
         System.out.println(srcForChelseaTeeBlack);
         assertThat("the color of products has not changed",srcForChelseaTeeBlack,equalTo(expectedColor));
